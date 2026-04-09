@@ -4,12 +4,12 @@
 #include <stdint.h>
 #include <time.h>
 #include <pthread.h>
-#include "image.h"
+#include "CISC372_picProject/image.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "CISC372_picProject/stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
+#include "CISC372_picProject/stb_image_write.h"
 
 #ifndef NUM_THREADS
 #define NUM_THREADS 4
@@ -29,7 +29,7 @@ Matrix algorithms[] = {
 typedef struct {
     Image* srcImage;
     Image* destImage;
-    Matrix* algorithm;
+    Matrix algorithm;
     int startRow;
     int endRow;   // exclusive
 } ThreadArgs;
@@ -73,7 +73,7 @@ void* worker(void* arg) {
         for (int pix = 0; pix < args->srcImage->width; pix++) {
             for (int bit = 0; bit < args->srcImage->bpp; bit++) {
                 args->destImage->data[Index(pix,row,args->srcImage->width,bit,args->srcImage->bpp)] =
-                    getPixelValue(args->srcImage, pix, row, bit, *(args->algorithm));
+                    getPixelValue(args->srcImage, pix, row, bit, args->algorithm);
             }
         }
     }
@@ -95,7 +95,7 @@ void convolute(Image* srcImage, Image* destImage, Matrix algorithm) {
 
         args[i].srcImage = srcImage;
         args[i].destImage = destImage;
-        args[i].algorithm = &algorithm;
+        memcpy(args[i].algorithm, algorithm, sizeof(Matrix));
         args[i].startRow = currentRow;
         args[i].endRow = currentRow + rowsForThisThread;
 

@@ -4,12 +4,12 @@
 #include <stdint.h>
 #include <time.h>
 #include <omp.h>
-#include "image.h"
+#include "CISC372_picProject/image.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "CISC372_picProject/stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
+#include "CISC372_picProject/stb_image_write.h"
 
 // An array of kernel matrices to be used for image convolution.
 // The indexes of these match the enumeration from the header file.
