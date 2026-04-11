@@ -6,7 +6,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
@@ -22,13 +21,8 @@ Matrix algorithms[]={
 };
 
 
-//getPixelValue - Computes the value of a specific pixel on a specific channel using the selected convolution kernel
-//Paramters: srcImage:  An Image struct populated with the image being convoluted
-//           x: The x coordinate of the pixel
-//          y: The y coordinate of the pixel
-//          bit: The color channel being manipulated
-//          algorithm: The 3x3 kernel matrix to use for the convolution
-//Returns: The new value for this x,y pixel and bit channel
+// getPixelValue - Computes the value of a specific pixel on a specific
+// channel using the selected convolution kernel.
 uint8_t getPixelValue(Image* srcImage,int x,int y,int bit,Matrix algorithm){
     int px,mx,py,my,i,span;
     span=srcImage->width*srcImage->bpp;
